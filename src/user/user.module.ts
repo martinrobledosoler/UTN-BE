@@ -4,11 +4,11 @@ import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { PassportModule } from '@nestjs/passport';
-import { UserStrategy } from './decorator/user.strategy';
+import { BearerAuthStrategy } from './decorator/bearer-auth.strategy';
 
 @Module({
   imports: [PassportModule, TypeOrmModule.forFeature([User])],
-  providers: [UserService, UserStrategy],
+  providers: [UserService, BearerAuthStrategy],
   controllers: [UserController],
   exports: [UserService],
 })

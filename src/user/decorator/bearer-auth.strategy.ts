@@ -5,7 +5,7 @@ import { Strategy } from 'passport-http-bearer';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UserStrategy extends PassportStrategy(Strategy) {
+export class BearerAuthStrategy extends PassportStrategy(Strategy) {
   constructor(private configService: ConfigService) {
     super();
   }
@@ -17,7 +17,7 @@ export class UserStrategy extends PassportStrategy(Strategy) {
     if (match) {
       return true;
     } else {
-      throw new ConflictException('The bearer token doesnt match');
+      throw new ConflictException('The bearer token does not match');
     }
   }
 }

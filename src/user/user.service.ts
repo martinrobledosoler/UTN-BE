@@ -1,8 +1,6 @@
 import {
   BadRequestException,
   ConflictException,
-  HttpException,
-  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -15,7 +13,6 @@ import { UserUpdateDto } from './dto/user-update.dto';
 import { UserReturnDto } from './dto/user-return.dto';
 import * as bcrypt from 'bcrypt';
 import { UserDeleteDto } from './dto/user-delete.dto';
-import { use } from 'passport';
 
 @Injectable()
 export class UserService {
@@ -51,7 +48,6 @@ export class UserService {
 
     return user !== false ? bcrypt.compareSync(password, user.password) : false;
   }
-
   //---- End of task functions ----//
 
   async create(userCreateDto: UserCreateDto): Promise<UserReturnDto> {
@@ -73,7 +69,9 @@ export class UserService {
         );
       }
     } else {
-      throw new ConflictException('The user may already exist');
+      throw new ConflictException(
+        'The user may already exist, check the email',
+      );
     }
   }
 

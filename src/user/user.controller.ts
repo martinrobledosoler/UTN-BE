@@ -14,7 +14,7 @@ import { UserReturnDto } from './dto/user-return.dto';
 import { UserUpdatePasswordDto } from './dto/user-update-password.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
 import { UserService } from './user.service';
-import { UserGuard } from './decorator/user.guard';
+import { BearerAuthGuard } from './decorator/bearer-auth.guard';
 import { UserDeleteDto } from './dto/user-delete.dto';
 
 @Controller('user')
@@ -22,25 +22,25 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @UseGuards(UserGuard)
+  @UseGuards(BearerAuthGuard)
   create(@Body() userCreateDto: UserCreateDto): Promise<UserReturnDto> {
     return this.userService.create(userCreateDto);
   }
 
   @Get()
-  @UseGuards(UserGuard)
+  @UseGuards(BearerAuthGuard)
   findAll(): Promise<UserReturnDto[]> {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(UserGuard)
+  @UseGuards(BearerAuthGuard)
   findOne(@Param('id') id: number): Promise<UserReturnDto> {
     return this.userService.findOne(id);
   }
 
   @Put(':id')
-  @UseGuards(UserGuard)
+  @UseGuards(BearerAuthGuard)
   update(
     @Param('id') id: number,
     @Body() userUpdateDto: UserUpdateDto,
@@ -49,7 +49,7 @@ export class UserController {
   }
 
   @Put('/updatepassword/:id')
-  @UseGuards(UserGuard)
+  @UseGuards(BearerAuthGuard)
   updatePassword(
     @Param('id') id: number,
     @Body() userUpdatePasswordDto: UserUpdatePasswordDto,
@@ -58,7 +58,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @UseGuards(UserGuard)
+  @UseGuards(BearerAuthGuard)
   @HttpCode(204)
   delete(
     @Param('id') id: number,
