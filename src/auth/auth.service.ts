@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
@@ -21,6 +21,8 @@ export class AuthService {
       return {
         access_token: this.jwtService.sign(payload),
       };
+    } else {
+      throw new ConflictException('Wrong credentials');
     }
   }
 
