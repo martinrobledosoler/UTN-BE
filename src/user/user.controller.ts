@@ -16,10 +16,18 @@ import { UserUpdateDto } from './dto/user-update.dto';
 import { UserService } from './user.service';
 import { BearerAuthGuard } from './decorator/bearer-auth.guard';
 import { UserDeleteDto } from './dto/user-delete.dto';
+import { UserMailDto } from './dto/user-mail.dto';
+import { UserActivateDto } from './dto/user-activate.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Post('mail')
+  @UseGuards(BearerAuthGuard)
+  sendMail(@Body() userMailDto: UserMailDto): Promise<void> {
+    return this.userService.sendMail(userMailDto);
+  }
 
   @Post()
   @UseGuards(BearerAuthGuard)
@@ -48,13 +56,20 @@ export class UserController {
     return this.userService.update(id, userUpdateDto);
   }
 
-  @Put('/updatepassword/:id')
+  @Put('/updatepassword')
   @UseGuards(BearerAuthGuard)
   updatePassword(
-    @Param('id') id: number,
     @Body() userUpdatePasswordDto: UserUpdatePasswordDto,
   ): Promise<UserReturnDto> {
-    return this.userService.updatePassword(id, userUpdatePasswordDto);
+    return this.userService.updatePassword(userUpdatePasswordDto);
+  }
+
+  @Put('/activateuser')
+  @UseGuards(BearerAuthGuard)
+  activateUser(
+    @Body() userActivateDto: UserActivateDto,
+  ): Promise<UserReturnDto> {
+    return this.userService.activateUser(userActivateDto);
   }
 
   @Delete(':id')

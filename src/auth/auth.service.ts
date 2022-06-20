@@ -2,6 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { AuthValidateTokenDto } from './dto/auth-validate-token.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,7 @@ export class AuthService {
     }
   }
 
-  async validateToken(token: string) {
-    return this.jwtService.verify(token);
+  async validateToken(authValidateToken: AuthValidateTokenDto) {
+    return this.jwtService.verify(authValidateToken.token);
   }
 }
