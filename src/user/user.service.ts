@@ -64,7 +64,7 @@ export class UserService {
       secure: true, // true for 465, false for other ports
       auth: {
         user: 'homerowork22@gmail.com', // generated ethereal user
-        pass: 'twozlafznwalrxvu', // generated ethereal password
+        pass: '', // generated ethereal password
       },
     });
 
