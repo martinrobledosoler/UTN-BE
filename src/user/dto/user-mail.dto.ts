@@ -6,5 +6,5 @@ export class UserMailDto {
   readonly email: string;
 
   @IsString()
-  readonly action: string;
+  readonly url: string;
 }

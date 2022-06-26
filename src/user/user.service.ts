@@ -56,36 +56,35 @@ export class UserService {
   //---- End of task functions ----//
 
   async sendMail(userMailDto: UserMailDto) {
-    const { email, action } = userMailDto;
-    //mail para activar cuenta ... aprieta un boton
-    //mail para cambiar password ... redirije a una url
-    const testAccount = await nodemailer.createTestAccount();
-
+    const { email, url } = userMailDto;
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
       auth: {
-        user: testAccount.user, // generated ethereal user
-        pass: testAccount.pass, // generated ethereal password
+        user: 'homerowork22@gmail.com', // generated ethereal user
+        pass: 'twozlafznwalrxvu', // generated ethereal password
       },
     });
 
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: '<robledoprotuc@gmail.com>', // sender address
-      to: email, // list of receivers
-      subject: 'Hello ✔', // Subject line
-      text: 'Esto anda', // plain text body
-      html: '<b>Hello world?</b>', // html body
-    });
+    try {
+      await transporter.sendMail({
+        from: '"Validate User" <homerowork22@gmail.com>', // sender address
+        to: email, // list of receivers
+        subject: 'Validate User', // Subject line
+        html: `
+          <b>Por favor haz click en el enlace!</b>
+          <br>
+          <a href="${url}">Verificar mail</a>
+          `, // html body
+      });
+    } catch (err) {
+      console.log(err);
+    }
 
-    console.log('Message sent: %s', info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // Preview only available when sending through an Ethereal account
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    /*console.log('Message sent: %s', info.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));*/
   }
 
   async create(userCreateDto: UserCreateDto): Promise<UserReturnDto> {

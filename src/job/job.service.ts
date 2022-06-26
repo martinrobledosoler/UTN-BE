@@ -17,15 +17,24 @@ export class JobService {
 
   findAll() {
     //ver que hacer con paises(gb se deberia poder traer todos los paises) y el numero que esta en BASE_URL
-    //se deberia anidar la tecmnologia
     return this.httpService
       .get(
-        //https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=51e00c5a&app_key=ea55f05fce9f19e7eca8ea512f3a236d
         //${this.BASE_URL}/gb/${this.BASE_PARAMS}&app_id=${this.APP_ID}&app_key=${this.API_KEY}&content-type=application/json
         `
-      
-
       http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=51e00c5a&app_key=ea55f05fce9f19e7eca8ea512f3a236d&results_per_page=5&what=developer&content-type=application/json
+    `,
+      )
+      .pipe(
+        map((response) => response.data),
+        map((data) => ({ data: data })),
+      );
+  }
+
+  findTopFiveCompanies() {
+    return this.httpService
+      .get(
+        `
+        https://api.adzuna.com/v1/api/jobs/gb/top_companies?app_id=51e00c5a&app_key=ea55f05fce9f19e7eca8ea512f3a236d&what=developer
     `,
       )
       .pipe(

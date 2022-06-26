@@ -9,4 +9,9 @@ export class JobController {
   findAll() {
     return this.jobsService.findAll();
   }
+
+  @Get('stadistics')
+  findTopFiveCompanies() {
+    return this.jobsService.findTopFiveCompanies();
+  }
 }
