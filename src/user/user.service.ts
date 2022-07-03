@@ -57,34 +57,31 @@ export class UserService {
 
   async sendMail(userMailDto: UserMailDto) {
     const { email, url } = userMailDto;
-    // create reusable transporter object using the default SMTP transport
+
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
-      secure: true, // true for 465, false for other ports
+      secure: true,
       auth: {
-        user: 'homerowork22@gmail.com', // generated ethereal user
-        pass: '', // generated ethereal password
+        user: 'homerowork22@gmail.com',
+        pass: '',
       },
     });
 
     try {
       await transporter.sendMail({
-        from: '"Validate User" <homerowork22@gmail.com>', // sender address
-        to: email, // list of receivers
-        subject: 'Validate User', // Subject line
+        from: '"Validate User" <homerowork22@gmail.com>',
+        to: email,
+        subject: 'Validate User',
         html: `
           <b>Por favor haz click en el enlace!</b>
           <br>
           <a href="${url}">Verificar mail</a>
-          `, // html body
+          `,
       });
     } catch (err) {
       console.log(err);
     }
-
-    /*console.log('Message sent: %s', info.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));*/
   }
 
   async create(userCreateDto: UserCreateDto): Promise<UserReturnDto> {

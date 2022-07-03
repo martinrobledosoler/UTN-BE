@@ -1,7 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { response } from 'express';
 import { map } from 'rxjs';
 
 @Injectable()
@@ -17,11 +16,27 @@ export class JobService {
 
   findAll() {
     //ver que hacer con paises(gb se deberia poder traer todos los paises) y el numero que esta en BASE_URL
+    const r = this.allJobs(20);
+    return r;
+  }
+
+  allJobs(page): Array<object> {
+    if (page <= 0) {
+      return [];
+    } else {
+      const arr = this.allJobs(page - 1);
+      const job = this.jobRequest(page);
+      arr.push(job);
+      return arr;
+    }
+  }
+
+  jobRequest(page: number) {
     return this.httpService
       .get(
         //${this.BASE_URL}/gb/${this.BASE_PARAMS}&app_id=${this.APP_ID}&app_key=${this.API_KEY}&content-type=application/json
         `
-      http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=51e00c5a&app_key=ea55f05fce9f19e7eca8ea512f3a236d&results_per_page=5&what=developer&content-type=application/json
+    http://api.adzuna.com/v1/api/jobs/gb/search/${page}?app_id=51e00c5a&app_key=ea55f05fce9f19e7eca8ea512f3a236d&results_per_page=10&what=developer&content-type=application/json
     `,
       )
       .pipe(
