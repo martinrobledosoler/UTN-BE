@@ -16,12 +16,14 @@ import { UserDeleteDto } from './dto/user-delete.dto';
 import { UserMailDto } from './dto/user-mail.dto';
 import * as nodemailer from 'nodemailer';
 import { UserActivateDto } from './dto/user-activate.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private configService: ConfigService,
   ) {}
 
   //---- Start of task functions ----//
@@ -64,7 +66,7 @@ export class UserService {
       secure: true,
       auth: {
         user: 'homerowork22@gmail.com',
-        pass: '',
+        pass: this.configService.get<string>('MAIL_AUTH_PASS'),
       },
     });
 

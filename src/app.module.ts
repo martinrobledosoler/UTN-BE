@@ -5,6 +5,7 @@ import { JobsModule } from './job/job.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
