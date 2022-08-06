@@ -5,7 +5,11 @@ import { JobsModule } from './job/job.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { Technologies } from './entities/technologies.entity';
+import { TechUser } from './entities/tech-user.entity';
 import { HttpModule } from '@nestjs/axios';
+import { TechnologiesModule } from './technologies/technologies.module';
+import { TechuserModule } from './techuser/techuser.module';
 
 @Module({
   imports: [
@@ -23,9 +27,11 @@ import { HttpModule } from '@nestjs/axios';
       username: 'root',
       password: '',
       database: 'portaltrabajo',
-      entities: [User],
+      entities: [User, Technologies, TechUser],
       synchronize: true,
     }),
+    TechnologiesModule,
+    TechuserModule,
   ],
 })
 export class AppModule {}
