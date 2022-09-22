@@ -51,7 +51,7 @@ export class UserService {
   async checkIfUserCanLogin(email: string, password: string) {
     const user = await this.checkIfUserExistUsingEmail(email);
 
-    return user !== false //&& user.active === true
+    return user !== false && user.active === true
       ? bcrypt.compareSync(password, user.password)
       : false;
   }
@@ -65,14 +65,14 @@ export class UserService {
       port: 465,
       secure: true,
       auth: {
-        user: 'homerowork22@gmail.com',
+        user: 'mail',
         pass: this.configService.get<string>('MAIL_AUTH_PASS'),
       },
     });
 
     try {
       await transporter.sendMail({
-        from: '"Validate User" <homerowork22@gmail.com>',
+        from: '"Validate User" <mail>',
         to: email,
         subject: 'Validate User',
         html: `

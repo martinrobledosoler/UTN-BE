@@ -15,4 +15,8 @@ export class JobController {
   findTopFiveCompanies() {
     return this.jobsService.findTopFiveCompanies();
   }
+  @Get('salary')
+  salaryRangesForDevelopers() {
+    return this.jobsService.salaryRangesForDevelopers();
+  }
 }

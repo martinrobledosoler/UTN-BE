@@ -6,8 +6,8 @@ export class TechUser {
   id: number;
 
   @Column()
-  userId: number;
+  useremail: string;
 
   @Column()
-  techId: number;
+  technology: string;
 }

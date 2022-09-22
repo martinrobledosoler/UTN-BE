@@ -27,7 +27,11 @@ export class AuthService {
     }
   }
 
-  async validateToken(authValidateToken: AuthValidateTokenDto) {
-    return this.jwtService.verify(authValidateToken.token);
+  async validateToken(authValidateToken) {
+    if (authValidateToken.token != null) {
+      return this.jwtService.verify(authValidateToken.token);
+    } else {
+      return false;
+    }
   }
 }

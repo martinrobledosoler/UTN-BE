@@ -14,7 +14,7 @@ export class AuthController {
   }
 
   @Post('/validate')
-  validateToken(@Body() authValidateToken: AuthValidateTokenDto) {
+  validateToken(@Body() authValidateToken) {
     return this.authService.validateToken(authValidateToken);
   }
 }

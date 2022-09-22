@@ -56,7 +56,7 @@ export class UserController {
     return this.userService.update(id, userUpdateDto);
   }
 
-  @Put('/updatepassword')
+  @Post('/updatepassword')
   @UseGuards(BearerAuthGuard)
   updatePassword(
     @Body() userUpdatePasswordDto: UserUpdatePasswordDto,
@@ -64,7 +64,7 @@ export class UserController {
     return this.userService.updatePassword(userUpdatePasswordDto);
   }
 
-  @Put('/activateuser')
+  @Post('/activateuser')
   @UseGuards(BearerAuthGuard)
   activateUser(
     @Body() userActivateDto: UserActivateDto,
